@@ -1,6 +1,10 @@
+
+
 import React, { useEffect, useState } from 'react';
+import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { api } from '../api/axios';
-import { Typography } from '@mui/material';
+import { toast } from 'react-toastify';
+import Sidebar from '../components/Sidebar';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -10,8 +14,7 @@ const Orders = () => {
       const res = await api.get('/orders');
       setOrders(res.data);
     } catch (err) {
-      console.error(err);
-      alert('Failed to load orders');
+      toast.error('Failed to fetch orders');
     }
   };
 
@@ -20,30 +23,32 @@ const Orders = () => {
   }, []);
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <Typography variant="h4" gutterBottom>Order Management</Typography>
+    <Sidebar>
+      <Typography variant="h4" gutterBottom>Orders</Typography>
 
-      <table border="1" cellPadding="10">
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Customer</th>
-            <th>Total Price</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map(o => (
-            <tr key={o.id}>
-              <td>{o.id}</td>
-              <td>{o.customer_name}</td>
-              <td>${o.total_price}</td>
-              <td>{o.status}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead sx={{ backgroundColor: '#f4f6f8' }}>
+            <TableRow>
+              <TableCell>Order ID</TableCell>
+              <TableCell>Customer Name</TableCell>
+              <TableCell>Total Price</TableCell>
+              <TableCell>Status</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {orders.map(order => (
+              <TableRow key={order.id}>
+                <TableCell>{order.id}</TableCell>
+                <TableCell>{order.customer_name}</TableCell>
+                <TableCell>${order.total_price}</TableCell>
+                <TableCell>{order.status}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Sidebar>
   );
 };
 

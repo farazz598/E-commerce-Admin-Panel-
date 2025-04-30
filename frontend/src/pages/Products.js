@@ -2,8 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import { api } from '../api/axios';
-import { TextField, Button, Typography, Dialog, DialogActions, DialogContent, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { TextField, Button, Typography, Dialog, DialogActions, DialogContent, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box } from '@mui/material';
 import { toast } from 'react-toastify';
+import Sidebar from '../components/Sidebar';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -74,27 +75,27 @@ const Products = () => {
   };
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <Typography variant="h4" gutterBottom>Product Management</Typography>
+    <Sidebar>
+      <Typography variant="h4" gutterBottom>Manage Products</Typography>
 
-      <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
-        <TextField label="Name" name="name" value={form.name} onChange={handleChange} fullWidth />
-        <TextField label="Description" name="description" value={form.description} onChange={handleChange} fullWidth />
-        <TextField label="Price" name="price" type="number" value={form.price} onChange={handleChange} fullWidth />
-        <TextField label="Quantity" name="quantity" type="number" value={form.quantity} onChange={handleChange} fullWidth />
-        <TextField label="Image URL" name="image_url" value={form.image_url} onChange={handleChange} fullWidth />
+      <Box display="flex" flexWrap="wrap" gap={2} mb={3}>
+        <TextField label="Name" name="name" value={form.name} onChange={handleChange} />
+        <TextField label="Description" name="description" value={form.description} onChange={handleChange} />
+        <TextField label="Price" name="price" type="number" value={form.price} onChange={handleChange} />
+        <TextField label="Quantity" name="quantity" type="number" value={form.quantity} onChange={handleChange} />
+        <TextField label="Image URL" name="image_url" value={form.image_url} onChange={handleChange} />
         <Button variant="contained" onClick={handleAdd}>Add Product</Button>
-      </div>
+      </Box>
 
       <TableContainer component={Paper}>
         <Table>
-          <TableHead>
+          <TableHead sx={{ backgroundColor: '#f4f6f8' }}>
             <TableRow>
               <TableCell>Name</TableCell>
               <TableCell>Price</TableCell>
               <TableCell>Quantity</TableCell>
               <TableCell>Image</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -103,8 +104,8 @@ const Products = () => {
                 <TableCell>{p.name}</TableCell>
                 <TableCell>${p.price}</TableCell>
                 <TableCell>{p.quantity}</TableCell>
-                <TableCell><img src={p.image_url} alt={p.name} width="50" /></TableCell>
-                <TableCell>
+                <TableCell><img src={p.image_url} alt={p.name} width="40" /></TableCell>
+                <TableCell align="right">
                   <Button color="primary" onClick={() => handleOpenEdit(p)}>Edit</Button>
                   <Button color="error" onClick={() => handleDelete(p.id)}>Delete</Button>
                 </TableCell>
@@ -128,7 +129,7 @@ const Products = () => {
           <Button variant="contained" onClick={handleUpdate}>Update</Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </Sidebar>
   );
 };
 

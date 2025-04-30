@@ -1,11 +1,11 @@
-# app/__init__.py
+
 from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_mysqldb import MySQL
 
 
-mysql = MySQL()  # ← Moved here
+mysql = MySQL()  
 
 def create_app():
     app = Flask(__name__)
@@ -13,7 +13,7 @@ def create_app():
 
     CORS(app)
     JWTManager(app)
-    mysql.init_app(app)  # ← Init happens here
+    mysql.init_app(app)  
 
     from .routes.products import products_bp
     app.register_blueprint(products_bp)

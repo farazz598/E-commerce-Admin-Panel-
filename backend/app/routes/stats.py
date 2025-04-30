@@ -1,6 +1,8 @@
+
+
 from flask import Blueprint, jsonify
-from app import mysql
 from flask_jwt_extended import jwt_required
+from app import mysql
 
 stats_bp = Blueprint('stats', __name__)
 
@@ -8,16 +10,9 @@ stats_bp = Blueprint('stats', __name__)
 @jwt_required()
 def get_stats():
     cur = mysql.connection.cursor()
-
     cur.execute("SELECT COUNT(*) FROM products")
-    product_count = cur.fetchone()[0]
-
+    total_products = cur.fetchone()[0]
     cur.execute("SELECT COUNT(*) FROM orders")
-    order_count = cur.fetchone()[0]
-
+    total_orders = cur.fetchone()[0]
     cur.close()
-
-    return jsonify({
-        'total_products': product_count,
-        'total_orders': order_count
-    })
+    return jsonify({ 'total_products': total_products, 'total_orders': total_orders })

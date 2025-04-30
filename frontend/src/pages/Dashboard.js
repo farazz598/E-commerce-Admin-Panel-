@@ -1,9 +1,15 @@
+
+
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button, Card, CardContent, Typography, Grid } from '@mui/material';
 import { api } from '../api/axios';
-import { Card, CardContent, Typography } from '@mui/material';
+import { toast } from 'react-toastify';
+import Sidebar from '../components/Sidebar';
 
 const Dashboard = () => {
   const [stats, setStats] = useState({ total_products: 0, total_orders: 0 });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -11,32 +17,36 @@ const Dashboard = () => {
         const res = await api.get('/stats');
         setStats(res.data);
       } catch (err) {
-        console.error('Failed to fetch stats', err);
+        toast.error('Failed to fetch dashboard stats');
       }
     };
     fetchStats();
   }, []);
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <Typography variant="h4" gutterBottom>Admin Dashboard</Typography>
-
-      <div style={{ display: 'flex', gap: '2rem' }}>
-        <Card sx={{ minWidth: 275 }}>
-          <CardContent>
-            <Typography variant="h5">Total Products</Typography>
-            <Typography variant="h4">{stats.total_products}</Typography>
-          </CardContent>
-        </Card>
-
-        <Card sx={{ minWidth: 275 }}>
-          <CardContent>
-            <Typography variant="h5">Total Orders</Typography>
-            <Typography variant="h4">{stats.total_orders}</Typography>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+    <Sidebar>
+      <Typography variant="h4" gutterBottom>Dashboard Overview</Typography>
+      <Grid container spacing={4}>
+        <Grid item xs={12} md={6}>
+          <Card sx={{ backgroundColor: '#fffbe6' }}>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>Total Products</Typography>
+              <Typography variant="h3">{stats.total_products}</Typography>
+              <Button onClick={() => navigate('/products')} sx={{ mt: 2 }} variant="contained">Go to Products</Button>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Card sx={{ backgroundColor: '#e8f5e9' }}>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>Total Orders</Typography>
+              <Typography variant="h3">{stats.total_orders}</Typography>
+              <Button onClick={() => navigate('/orders')} sx={{ mt: 2 }} variant="contained">View Orders</Button>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </Sidebar>
   );
 };
 
