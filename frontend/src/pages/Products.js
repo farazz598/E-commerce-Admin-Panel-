@@ -1,8 +1,10 @@
-
-
 import React, { useEffect, useState } from 'react';
 import { api } from '../api/axios';
-import { TextField, Button, Typography, Dialog, DialogActions, DialogContent, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box } from '@mui/material';
+import {
+  TextField, Button, Typography, Dialog, DialogActions, DialogContent,
+  DialogTitle, Table, TableBody, TableCell, TableContainer,
+  TableHead, TableRow, Paper, Box
+} from '@mui/material';
 import { toast } from 'react-toastify';
 import Sidebar from '../components/Sidebar';
 
@@ -74,35 +76,88 @@ const Products = () => {
     }
   };
 
+  const textFieldStyle = {
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: '#000',
+      },
+    },
+    '& .MuiInputLabel-root': {
+      color: '#000',
+    },
+    '& .MuiOutlinedInput-input': {
+      color: '#000',
+    },
+  };
+
   return (
     <Sidebar>
       <Typography variant="h4" gutterBottom>Manage Products</Typography>
 
       <Box display="flex" flexWrap="wrap" gap={2} mb={3}>
-        <TextField label="Name" name="name" value={form.name} onChange={handleChange} />
-        <TextField label="Description" name="description" value={form.description} onChange={handleChange} />
-        <TextField label="Price" name="price" type="number" value={form.price} onChange={handleChange} />
-        <TextField label="Quantity" name="quantity" type="number" value={form.quantity} onChange={handleChange} />
-        <TextField label="Image URL" name="image_url" value={form.image_url} onChange={handleChange} />
-        <Button variant="contained" onClick={handleAdd}>Add Product</Button>
+        <TextField
+          label="Name"
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          sx={textFieldStyle}
+        />
+        <TextField
+          label="Description"
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+          sx={textFieldStyle}
+        />
+        <TextField
+          label="Price"
+          name="price"
+          type="number"
+          value={form.price}
+          onChange={handleChange}
+          sx={textFieldStyle}
+        />
+        <TextField
+          label="Quantity"
+          name="quantity"
+          type="number"
+          value={form.quantity}
+          onChange={handleChange}
+          sx={textFieldStyle}
+        />
+        <TextField
+          label="Image URL"
+          name="image_url"
+          value={form.image_url}
+          onChange={handleChange}
+          sx={textFieldStyle}
+        />
+        <Button
+          variant="contained"
+          color="error"
+          onClick={handleAdd}
+          sx={{ alignSelf: 'center', height: '56px' }}
+        >
+          Add Product
+        </Button>
       </Box>
 
       <TableContainer component={Paper}>
         <Table>
-          <TableHead sx={{ backgroundColor: '#f4f6f8' }}>
+          <TableHead sx={{ backgroundColor: '#d32f2f' }}>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Quantity</TableCell>
-              <TableCell>Image</TableCell>
-              <TableCell align="right">Actions</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Name</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Price</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Quantity</TableCell>
+              <TableCell sx={{ color: '#fff' }}>Image</TableCell>
+              <TableCell sx={{ color: '#fff' }} align="right">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {products.map((p) => (
               <TableRow key={p.id}>
                 <TableCell>{p.name}</TableCell>
-                <TableCell>${p.price}</TableCell>
+                <TableCell>₹{p.price}</TableCell>
                 <TableCell>{p.quantity}</TableCell>
                 <TableCell><img src={p.image_url} alt={p.name} width="40" /></TableCell>
                 <TableCell align="right">
@@ -118,11 +173,53 @@ const Products = () => {
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>Edit Product</DialogTitle>
         <DialogContent>
-          <TextField label="Name" name="name" value={form.name} onChange={handleChange} fullWidth margin="dense" />
-          <TextField label="Description" name="description" value={form.description} onChange={handleChange} fullWidth margin="dense" />
-          <TextField label="Price" name="price" type="number" value={form.price} onChange={handleChange} fullWidth margin="dense" />
-          <TextField label="Quantity" name="quantity" type="number" value={form.quantity} onChange={handleChange} fullWidth margin="dense" />
-          <TextField label="Image URL" name="image_url" value={form.image_url} onChange={handleChange} fullWidth margin="dense" />
+          <TextField
+            label="Name"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            fullWidth
+            margin="dense"
+            sx={textFieldStyle}
+          />
+          <TextField
+            label="Description"
+            name="description"
+            value={form.description}
+            onChange={handleChange}
+            fullWidth
+            margin="dense"
+            sx={textFieldStyle}
+          />
+          <TextField
+            label="Price"
+            name="price"
+            type="number"
+            value={form.price}
+            onChange={handleChange}
+            fullWidth
+            margin="dense"
+            sx={textFieldStyle}
+          />
+          <TextField
+            label="Quantity"
+            name="quantity"
+            type="number"
+            value={form.quantity}
+            onChange={handleChange}
+            fullWidth
+            margin="dense"
+            sx={textFieldStyle}
+          />
+          <TextField
+            label="Image URL"
+            name="image_url"
+            value={form.image_url}
+            onChange={handleChange}
+            fullWidth
+            margin="dense"
+            sx={textFieldStyle}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)}>Cancel</Button>

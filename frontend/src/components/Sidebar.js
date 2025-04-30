@@ -22,7 +22,7 @@ const Sidebar = ({ children }) => {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <AppBar position="fixed" sx={{ zIndex: 1201 }}>
+      <AppBar position="fixed" sx={{ zIndex: 1201, backgroundColor: '#d32f2f'  }}>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant="h6">Ecommerce Admin Panel</Typography>
           <Button color="inherit" onClick={handleLogout}>Logout</Button>
@@ -37,7 +37,8 @@ const Sidebar = ({ children }) => {
           [`& .MuiDrawer-paper`]: {
             width: drawerWidth,
             boxSizing: 'border-box',
-            backgroundColor: '#f8f9fa'
+            backgroundColor: '#1e1e1e',
+            color: '#fff'
           },
         }}
       >

@@ -28,20 +28,21 @@ const Dashboard = () => {
       <Typography variant="h4" gutterBottom>Dashboard Overview</Typography>
       <Grid container spacing={4}>
         <Grid item xs={12} md={6}>
-          <Card sx={{ backgroundColor: '#fffbe6' }}>
+          <Card sx={{ backgroundColor: '#2c2c2c', color: '#fff' }}>
             <CardContent>
               <Typography variant="h6" gutterBottom>Total Products</Typography>
               <Typography variant="h3">{stats.total_products}</Typography>
-              <Button onClick={() => navigate('/products')} sx={{ mt: 2 }} variant="contained">Go to Products</Button>
+              <Button onClick={() => navigate('/products')} sx={{ mt: 2 }} variant="contained" color="error">Go to Products</Button>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Card sx={{ backgroundColor: '#e8f5e9' }}>
+        <Card sx={{ backgroundColor: '#2c2c2c', color: '#fff' }}>
+
             <CardContent>
               <Typography variant="h6" gutterBottom>Total Orders</Typography>
               <Typography variant="h3">{stats.total_orders}</Typography>
-              <Button onClick={() => navigate('/orders')} sx={{ mt: 2 }} variant="contained">View Orders</Button>
+              <Button onClick={() => navigate('/orders')} sx={{ mt: 2 }} variant="contained" color="error">View Orders</Button>
             </CardContent>
           </Card>
         </Grid>
